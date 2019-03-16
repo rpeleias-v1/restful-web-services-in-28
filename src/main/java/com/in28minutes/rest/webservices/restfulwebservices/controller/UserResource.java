@@ -34,7 +34,7 @@ public class UserResource {
         }
 
         //add HATEOAS to return a link that returns retrieveAllUsers operation
-        Resource<User> resource = new Resource<>();
+        Resource<User> resource = new Resource<>(user);
 
         ControllerLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllUsers());
         resource.add(linkTo.withRel("all-users"));
