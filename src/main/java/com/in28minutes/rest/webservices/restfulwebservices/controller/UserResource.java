@@ -3,6 +3,8 @@ package com.in28minutes.rest.webservices.restfulwebservices.controller;
 import com.in28minutes.rest.webservices.restfulwebservices.entity.User;
 import com.in28minutes.rest.webservices.restfulwebservices.service.UserDaoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -10,6 +12,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
 
 @RestController
 public class UserResource {
@@ -23,12 +27,19 @@ public class UserResource {
     }
 
     @GetMapping("/users/{id}")
-    public User retrieveSingleUser(@PathVariable Integer id) {
+    public Resource<User> retrieveSingleUser(@PathVariable Integer id) {
         User user = service.findOne(id);
         if (user == null) {
             throw new UserNotFoundException("id-" + id);
         }
-        return user;
+
+        //add HATEOAS to return a link that returns retrieveAllUsers operation
+        Resource<User> resource = new Resource<>();
+
+        ControllerLinkBuilder linkTo = linkTo(methodOn(this.getClass()).retrieveAllUsers());
+        resource.add(linkTo.withRel("all-users"));
+
+        return resource;
     }
 
     @PostMapping("/users")
