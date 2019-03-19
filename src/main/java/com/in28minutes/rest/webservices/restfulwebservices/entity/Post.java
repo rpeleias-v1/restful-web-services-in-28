@@ -23,7 +23,9 @@ public class Post {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
+
+    private String description;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
