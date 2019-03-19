@@ -11,5 +11,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PersonV2 {
 
-    private String name;
+    private Name name;
 }
