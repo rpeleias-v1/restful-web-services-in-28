@@ -1,6 +1,7 @@
 package com.in28minutes.rest.webservices.restfulwebservices.controller;
 
 import com.in28minutes.rest.webservices.restfulwebservices.entity.User;
+import com.in28minutes.rest.webservices.restfulwebservices.exception.UserNotFoundException;
 import com.in28minutes.rest.webservices.restfulwebservices.service.UserDaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Resource;
